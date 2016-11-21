@@ -1,7 +1,7 @@
 # iLCSoft Documentation
 
-This is some documentation for the iLCSoft project on GitHub.
-You can find more details about ilcsoft:
+This package provides some minimal documentation for the iLCSoft project on GitHub.
+You can find more details about ilcsoft itself at:
 
 - [http://ilcsoft.desy.de/portal](http://ilcsoft.desy.de/portal)
 
@@ -17,8 +17,9 @@ The following packages are already fully maintained on GitHub:
 - [Clupatra](https://github.com/iLCSoft/Clupatra)
 - [FCalClusterer](https://github.com/iLCSoft/FCalClusterer)
 
+The rest of the packages are currently still maintained on svn and only mirrored to GitHub.
+They will be migrated soon.
 
-More packages will be migrated to GitHub soon.
 Some ilcsoft packages are maintained in related GitHub projects:
 
 - [AidaSoft/DD4hep]   (https://github.com/AidaSoft/DD4hep) 
