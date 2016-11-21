@@ -1,4 +1,4 @@
-# iLCSoft Documenation
+# iLCSoft Documentation
 
 This is some doucmentation for the iLCSoft project on Github.
 You can find more details about ilcsoft:
