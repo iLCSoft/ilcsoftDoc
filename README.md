@@ -13,7 +13,7 @@ the [DESY svn](https://svnsrv.desy.de/websvn) to Github.
 
 The following packages are already fully maintained on GitHub:
 
-- MarlinFastJet
+- https://github.com/iLCSoft/MarlinFastJet
 - Clupatra
 - FCalClusterer
 
