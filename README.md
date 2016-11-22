@@ -15,7 +15,6 @@ The following packages are already fully maintained on GitHub:
 
 - [MarlinFastJet](https://github.com/iLCSoft/MarlinFastJet)
 - [Clupatra](https://github.com/iLCSoft/Clupatra)
-- [FCalClusterer](https://github.com/iLCSoft/FCalClusterer)
 
 The rest of the packages are currently still maintained on svn and only mirrored to GitHub.
 They will be migrated soon.
@@ -25,6 +24,7 @@ Some ilcsoft packages are maintained in related GitHub projects:
 - [AidaSoft/DD4hep]   (https://github.com/AidaSoft/DD4hep) 
 - [AidaSoft/aidaTT]	  (https://github.com/AidaSoft/aidaTT) 
 - [lcfiplus/LCFIPlus] (https://github.com/lcfiplus/LCFIPlus)
+- [FCALSW/FCalClusterer](https://github.com/FCALSW/FCalClusterer)
 
 ## Contributing to iLCSoft packages
 
