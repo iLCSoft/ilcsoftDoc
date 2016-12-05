@@ -13,8 +13,9 @@ the [DESY svn](https://svnsrv.desy.de/websvn) to GitHub.
 
 The following packages are already fully maintained on GitHub:
 
-- [MarlinFastJet](https://github.com/iLCSoft/MarlinFastJet)
+- [Marlin](https://github.com/iLCSoft/Marlin)
 - [Clupatra](https://github.com/iLCSoft/Clupatra)
+- [MarlinFastJet](https://github.com/iLCSoft/MarlinFastJet)
 
 The rest of the packages are currently still maintained on svn and only mirrored to GitHub.
 They will be migrated soon.
