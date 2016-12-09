@@ -13,6 +13,7 @@ the [DESY svn](https://svnsrv.desy.de/websvn) to GitHub.
 
 The following packages are already fully maintained on GitHub:
 
+- [LCIO](https://github.com/iLCSoft/LCIO)
 - [Marlin](https://github.com/iLCSoft/Marlin)
 - [Clupatra](https://github.com/iLCSoft/Clupatra)
 - [MarlinFastJet](https://github.com/iLCSoft/MarlinFastJet)
