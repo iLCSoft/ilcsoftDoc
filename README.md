@@ -17,6 +17,8 @@ The following packages are already fully maintained on GitHub:
 - [Marlin](https://github.com/iLCSoft/Marlin)
 - [Clupatra](https://github.com/iLCSoft/Clupatra)
 - [MarlinFastJet](https://github.com/iLCSoft/MarlinFastJet)
+- [MarlinTrkProcessors](https://github.com/iLCSoft/MarlinTrkProcessors)
+
 
 The rest of the packages are currently still maintained on svn and only mirrored to GitHub.
 They will be migrated soon.
