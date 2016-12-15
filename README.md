@@ -15,6 +15,7 @@ The following packages are already fully maintained on GitHub:
 
 - [LCIO](https://github.com/iLCSoft/LCIO)
 - [Marlin](https://github.com/iLCSoft/Marlin)
+- [lcgeo](https://github.com/iLCSoft/lcgeo)
 - [Clupatra](https://github.com/iLCSoft/Clupatra)
 - [MarlinFastJet](https://github.com/iLCSoft/MarlinFastJet)
 - [MarlinTrkProcessors](https://github.com/iLCSoft/MarlinTrkProcessors)
