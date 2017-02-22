@@ -19,7 +19,9 @@ The following packages are already fully maintained on GitHub:
 - [Clupatra](https://github.com/iLCSoft/Clupatra)
 - [MarlinFastJet](https://github.com/iLCSoft/MarlinFastJet)
 - [MarlinTrkProcessors](https://github.com/iLCSoft/MarlinTrkProcessors)
-
+- [Overlay]((https://github.com/iLCSoft/Overlay)
+- [MarlinDD4hep]((https://github.com/iLCSoft/MarlinDD4hep)
+- [DDMarlinPandora]((https://github.com/iLCSoft/DDMarlinPandora)
 
 The rest of the packages are currently still maintained on svn and only mirrored to GitHub.
 They will be migrated soon.
