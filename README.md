@@ -33,6 +33,10 @@ Some ilcsoft packages are maintained in related GitHub projects:
 - [lcfiplus/LCFIPlus] (https://github.com/lcfiplus/LCFIPlus)
 - [FCALSW/FCalClusterer](https://github.com/FCALSW/FCalClusterer)
 
+### Overview of Open Issues and PullRequests
+
+[Dashboard](https://github.com/issues?utf8=%E2%9C%93&q=is%3Aopen+user%3AiLCSoft+user%3AAIDASoft+user%3AFCALSW+user%3APandoraPFA)
+
 ## Contributing to iLCSoft packages
 
 If you want to contribute to iLCSoft packages on GitHub, fork the corresponding
