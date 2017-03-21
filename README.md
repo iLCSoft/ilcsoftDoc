@@ -28,9 +28,9 @@ They will be migrated soon.
 
 Some ilcsoft packages are maintained in related GitHub projects:
 
-- [AidaSoft/DD4hep]   (https://github.com/AidaSoft/DD4hep) 
-- [AidaSoft/aidaTT]	  (https://github.com/AidaSoft/aidaTT) 
-- [lcfiplus/LCFIPlus] (https://github.com/lcfiplus/LCFIPlus)
+- [AidaSoft/DD4hep](https://github.com/AidaSoft/DD4hep)
+- [AidaSoft/aidaTT](https://github.com/AidaSoft/aidaTT)
+- [lcfiplus/LCFIPlus](https://github.com/lcfiplus/LCFIPlus)
 - [FCALSW/FCalClusterer](https://github.com/FCALSW/FCalClusterer)
 
 ### Overview of Open Issues and PullRequests
@@ -40,7 +40,8 @@ Some ilcsoft packages are maintained in related GitHub projects:
 ## Contributing to iLCSoft packages
 
 If you want to contribute to iLCSoft packages on GitHub, fork the corresponding
-project and create a pull request with your proposed changes.
+project and create a pull request with your proposed changes. Please see the
+[contribution guidelines](.github/CONTRIBUTING.md).
 
 ### Tutorial for using git (and GitHub) 
 
