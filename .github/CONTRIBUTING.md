@@ -8,7 +8,7 @@ changed. Please include a short description in the
 BEGINRELEASENOTES/ENDRELEASENOTES block, which will appear in the
 doc/ReleaseNotes.md of the given package, once a new tag is made.
 
-## Conding Conventions
+## Coding Conventions
 
  * See the [coding conventions for iLCSoft](http://ilcsoft.desy.de/portal/e279/e281/infoboxContent282/sw_guidelines_ilcsoft.pdf)
 
