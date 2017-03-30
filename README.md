@@ -11,20 +11,9 @@ the [DESY svn](https://svnsrv.desy.de/websvn) to GitHub.
 
 ## List of packages maintained on GitHub
 
-The following packages are already fully maintained on GitHub:
-
-- [LCIO](https://github.com/iLCSoft/LCIO)
-- [Marlin](https://github.com/iLCSoft/Marlin)
-- [lcgeo](https://github.com/iLCSoft/lcgeo)
-- [Clupatra](https://github.com/iLCSoft/Clupatra)
-- [MarlinFastJet](https://github.com/iLCSoft/MarlinFastJet)
-- [MarlinTrkProcessors](https://github.com/iLCSoft/MarlinTrkProcessors)
-- [Overlay](https://github.com/iLCSoft/Overlay)
-- [MarlinDD4hep](https://github.com/iLCSoft/MarlinDD4hep)
-- [DDMarlinPandora](https://github.com/iLCSoft/DDMarlinPandora)
-
-The rest of the packages are currently still maintained on svn and only mirrored to GitHub.
-They will be migrated soon.
+All packages in the iLCSoft GitHub project are now fully maintained on GitHub.
+Some remaining packages, e.g. for test beams, are still maintained on svn.
+Contact us, if you want your package to also be included in the iLCSoft GitHub project.
 
 Some ilcsoft packages are maintained in related GitHub projects:
 
