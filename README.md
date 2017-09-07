@@ -40,179 +40,204 @@ If you are new to git and GitHub, have a look at this tutorial:
 
 
 
-##work flow for ILC group
-
-- mc-particles with Whizard+Pythia, which will generate stdhep files with n00 MB/file.
-- split a stdhep file to many small files.
-- simulated-particles with Mokka/DD4hep, which will generate slcio files with xGB/file.
-- reconstructed particles with Marlin processors, which will generate two kinds of files -- "DST" files and "REC" files.
-- merge those "DST"/"REC" files into one big file. The "REC" file contains all infomation for generating, simulation and reconstruction. The "DST" file only contain some of them.
-- The "DST" file is what we usually use.
 
 
+## A Brief Introduction for how to use ILCSoft packages
+
+### work flow for ILC group
+When one wants to analyse a physics process, the typical work flow may look as following:
+
+1. Generate monte-carlo particles for that physics process with a generator, e.g. Whizard+Pythia (it is not included in the ILCSoft, here is [Whizard](https://whizard.hepforge.org/)), which will generate stdhep files with n00 MB/file, the size of file depanding on the setting of the generator.
+2. Split a stdhep file to many small files (n0 MB/file), since in the next step, simulation process will store huge information for each events.
+3. Simulate particle samples with Mokka/DD4hep, which will generate "slcio" files with n GB/file. The slcio file is a standard file for ILCSoft.
+4. Reconstruct particle information with Marlin processors, which will generate two kinds of files -- "DST" files and "REC" files.
+5. Merge those "DST"/"REC" files into one or several bigger files. The "REC" file contains all infomation for generating, simulation and reconstruction. The "DST" file only contain some of them. Usually, the "DST" file is what we use for analysis, but you can also check the "REC" file for more details.
+6. Write a steering file for Marlin platform, with others' processor or your own processor, to complete your analysis. 
 
 
-## The meaning of the file name
-e.g.
-rv01-19-04_lcgeo.sv01-19-04_lcgeo.mILD_l4_v02.E250-TDR_ws.I106479.Pe2e2h.eL.pR.n001_012.d_rec_00008603_6.slcio
-rv---reconstruction software version, here is 01-19-04_lcgeo
-sv---simulation     software version, here is 01-19-04_lcgeo 
-m ---ILD version                      here is ILD_l4_v02      
-E ---collider energy                  here is 250-TDR_ws      , 250 GeV collider
-I ---Proc ID                          here is 106479          , each process has a unique id 
-P ---process name                     here is e2e2h           , ee -> zh, z->mu mu process
-e ---beam polorization                here is eL              , electron is left-handed
-p ---beam polorization                here is pR              , positron is right-handed
-n ---job number                       here is 001_012         , the number for simulation group submitting the job
-d_---Job ID                           here is rec_00008603_6  , this is a rec file
 
-The information of event samples can be found at 
+
+### The events samples in ILC group
+In ILC group, many SM and new physics event samples have already been generated and simulated.
+The detail information of the SM event samples can be found at 
 http://ilfsoft.desy.de/dbd/generated/
 
+The sample file name in the ILC group will be
+rv01-19-04_lcgeo.sv01-19-04_lcgeo.mILD_l4_v02.E250-TDR_ws.I106479.Pe2e2h.eL.pR.n001_012.d_rec_00008603_6.slcio
+|short name | meaning  | example | explaination |
+|:---------:|:--------:|:-------:|:------------:|
+|rv | reconstruction software version|  01-19-04_lcgeo |                                                    |
+|sv | simulation     software version|  01-19-04_lcgeo |                                                    |
+|m  | ILD detector   software version|  ILD_l4_v02     |  ILD detector version                              | 
+|E  | collider energy                |  250-TDR_ws     |  250 GeV collider                                  |
+|I  | Proc ID                        |  106479         |  each process has a unique id                      |   
+|P  | process name                   |  e2e2h          |  ee -> zh then z-> mu mu process                   | 
+|e  | beam polorization              |  eL             |  electron is left-handed                           | 
+|p  | beam polorization              |  pR             |  positron is right-handed                          | 
+|n  | job number                     |  001_012        |  the number for simulation group submitting the job|
+|d_ | Job ID                         |  rec_00008603_6 |  this is a rec file                                |
+
+In principle, one can re-generate all the same events with the same software setting.
 
 
 
-## Basic command 
-After installing the ILCSoft, there will be some tools for basic straight-forward checking the events.
-Suppose you already have a .stdhep file, then
-- transfer a .stdhep file to a .slcio file
-    stdhepjob *.stdhep *.slcio 1
-- check .slcio
-   anajob *.slcio
-   dumpevent *.slcio n | less
-- check the event in the detector
-   ced2go -d GearOutput.xml -v DSTViewer *.slcio   --- for DST file
-   ced2go -d GearOutput.xml  *.slcio               --- for REC file
+
+### Basic command to check the events 
+When one generate some event samples, the first thing he/she wants to do usually is  checking the events with some basic straight-forward tools. 
+The ILCSoft provides many tools to check them for different purposes.
+
+1. Suppose you only have a .stdhep file, which is very easy generated by many generators, then you can transfer a .stdhep file to a .slcio file with
+- stdhepjob xxx.stdhep xxx.slcio 1
+2. The file after simulation is always a "slcio" file, you can check the "slcio" file with 
+- anajob xxx.slcio  for basic information
+- dumpevent xxx.slcio n | less  for details of the n th events
+3. check the event in the detector, the GearOutput.xml can be found in "ILDConfig" folder, which contains the ILD detector information.
+- ced2go -d GearOutput.xml -v DSTViewer xxx.slcio   --- for DST file   
+- ced2go -d GearOutput.xml  xxx.slcio               --- for REC file
 
 
 
 
 
 
-## how to write a new Marlin processor
-   The most easy way is
-     ./copy_new_processor.sh  old_processor_directory   new_processor_name
+### how to run Marlin for analysis 
+When you have the events, you can analyse them in the Marlin platform.
+To run Marlin, first you need a steering file, 
 
-This script can be decomposed by following steps:
-- you would better copy an old processer with .cc and .h file into a new folder and change the processer, instead of rewritting all of them.
-- change the processor class name into a new one!! 
-    NOTE: this is important, or it may conflict with existed processors.
-- put ./action.sh into the same folder, change the PROJECTNAME in the action, and run
+
+
+
+
+
+### how to write a new Marlin processor
+   The most easy way to create a new Marlin processor is
+   ./copy_new_processor.sh  old_processor_directory   new_processor_name
+
+   This script can be decomposed by following steps:
+   - You'd better copy an old processer with .cc and .h file into a new folder and change the processer, instead of rewritting all of them.
+   - Change the processor class name into a new one!! 
+   NOTE: this is important, or it may conflict with existed processors.
+   - Put ./action.sh into the same folder, change the PROJECTNAME in the action, and run
    ./action.sh
-- when running this script, five folders will be created
-   build   --- all compling file
-   src     --- source file
-   include --- head file
-   xml     --- steering file
-   lib     --- your processor library
-- go to xml folder, a default steering file has been created, change this steering file with the processors you want, then run it with
+   - When running this script, five folders will be created
+|   folder   |  meaning                |
+|:----------:|:-----------------------:|
+|  build     |  all compling file      |
+|  src       |  source file            |
+|  include   |  head file              |
+|  xml       |  steering file          |
+|  lib       |  your processor library |
+   - go to xml folder, a default steering file has been created, change this steering file with the processors you want, then run it with
    Marlin mysteer.xml
 
 
 
 
 
-## slcio file structure
-You can check the slcio file structure with anajob for a general information or dumpevent for details.
-The following are the generally structure of a slcio file, the first list is the name that you can invoke them in your program, The second 
-list is their types.
+### slcio file structure
+   You can check the slcio file structure with anajob for a general information or dumpevent for details.
+   The following are the generally structure of a slcio file, the first list is the name that you can invoke them in your program, The second 
+   list is their types.
 
-BCAL                          CalorimeterHit                  
-BeamCalCollection             SimCalorimeterHit               
-BuildUpVertex                 Vertex                          
-BuildUpVertex_RP              ReconstructedParticle           
-BuildUpVertex_V0              Vertex                          
-BuildUpVertex_V0_RP           ReconstructedParticle           
-ClupatraTrackSegments         Track                           
-ClupatraTracks                Track                           
-DistilledPFOs                 ReconstructedParticle           
-EcalBarrelCollection          SimCalorimeterHit               
-EcalEndcapRingCollection      SimCalorimeterHit               
-EcalEndcapsCollection         SimCalorimeterHit               
-EcalEndcapsCollectionDigi     CalorimeterHit                  
-EcalEndcapsCollectionGapHits  CalorimeterHit                  
-EcalEndcapsCollectionRec      CalorimeterHit                  
-EcalEndcapsRelationsSimDigi   LCRelation                      
-EcalEndcapsRelationsSimRec    LCRelation                      
-FTDCollection                 SimTrackerHit                   
-GammaGammaCandidateEtaPrimes  ReconstructedParticle           
-GammaGammaCandidateEtas       ReconstructedParticle           
-GammaGammaCandidatePi0s       ReconstructedParticle           
-GammaGammaParticles           ReconstructedParticle           
-HCalBarrelRPCHits             SimCalorimeterHit               
-HCalECRingRPCHits             SimCalorimeterHit               
-HCalEndcapRPCHits             SimCalorimeterHit               
-HcalBarrelRegCollection       SimCalorimeterHit               
-HcalEndcapRingCollection      SimCalorimeterHit               
-HcalEndcapsCollection         SimCalorimeterHit               
-LCAL                          CalorimeterHit                  
-LHCAL                         CalorimeterHit                  
-LHCalCollection               SimCalorimeterHit               
-LumiCalCollection             SimCalorimeterHit               
-MCParticle                    MCParticle                      
-MCTruthMarlinTrkTracksLink    LCRelation                      
-MUON                          CalorimeterHit                  
-MarlinTrkTracks               Track                           
-MarlinTrkTracksMCTruthLink    LCRelation                      
-PandoraClusters               Cluster                         
-PandoraPFANewStartVertices    Vertex                          
-PandoraPFOs                   ReconstructedParticle           
-PrimaryVertex                 Vertex                          
-PrimaryVertex_RP              ReconstructedParticle           
-RelationBCalHit               LCRelation                      
-RelationLHcalHit              LCRelation                      
-RelationLcalHit               LCRelation                      
-RelationMuonHit               LCRelation                      
-SETCollection                 SimTrackerHit                   
-SETSpacePointRelations        LCRelation                      
-SETSpacePoints                TrackerHit                      
-SETTrackerHitRelations        LCRelation                      
-SETTrackerHits                TrackerHitPlane                 
-SITCollection                 SimTrackerHit                   
-SITTrackerHitRelations        LCRelation                      
-SITTrackerHits                TrackerHitPlane                 
-SiTracks                      Track                           
-SubsetTracks                  Track                           
-TPCCollection                 SimTrackerHit                   
-TPCLowPtCollection            SimTrackerHit                   
-TPCSpacePointCollection       SimTrackerHit                   
-TPCTrackerHitRelations        LCRelation                      
-TPCTrackerHits                TrackerHit                      
-VXDCollection                 SimTrackerHit                   
-VXDTrackerHitRelations        LCRelation                      
-VXDTrackerHits                TrackerHitPlane                 
-YokeBarrelCollection          SimCalorimeterHit               
-YokeEndcapsCollection         SimCalorimeterHit               
+   | Collection Name              | Collection Type       | Explanat|
+   |:----------------------------:|:---------------------:|:-------:|
+   | BCAL                         | CalorimeterHit        |         |
+   | BeamCalCollection            | SimCalorimeterHit     |         |
+   | BuildUpVertex                | Vertex                |         |
+   | BuildUpVertex_RP             | ReconstructedParticle |         |
+   | BuildUpVertex_V0             | Vertex                |         |
+   | BuildUpVertex_V0_RP          | ReconstructedParticle |         |
+   | ClupatraTrackSegments        | Track                 |         |
+   | ClupatraTracks               | Track                 |         |
+   | DistilledPFOs                | ReconstructedParticle |         |
+   | EcalBarrelCollection         | SimCalorimeterHit     |         |
+   | EcalEndcapRingCollection     | SimCalorimeterHit     |         |
+   | EcalEndcapsCollection        | SimCalorimeterHit     |         |
+   | EcalEndcapsCollectionDigi    | CalorimeterHit        |         |
+   | EcalEndcapsCollectionGapHits | CalorimeterHit        |         |
+   | EcalEndcapsCollectionRec     | CalorimeterHit        |         |
+   | EcalEndcapsRelationsSimDigi  | LCRelation            |         |
+   | EcalEndcapsRelationsSimRec   | LCRelation            |         |
+   | FTDCollection                | SimTrackerHit         |         |
+   | GammaGammaCandidateEtaPrimes | ReconstructedParticle |         |
+   | GammaGammaCandidateEtas      | ReconstructedParticle |         |
+   | GammaGammaCandidatePi0s      | ReconstructedParticle |         |
+   | GammaGammaParticles          | ReconstructedParticle |         |
+   | HCalBarrelRPCHits            | SimCalorimeterHit     |         |
+   | HCalECRingRPCHits            | SimCalorimeterHit     |         |
+   | HCalEndcapRPCHits            | SimCalorimeterHit     |         |
+   | HcalBarrelRegCollection      | SimCalorimeterHit     |         |
+   | HcalEndcapRingCollection     | SimCalorimeterHit     |         |
+   | HcalEndcapsCollection        | SimCalorimeterHit     |         |
+   | LCAL                         | CalorimeterHit        |         |
+   | LHCAL                        | CalorimeterHit        |         |
+   | LHCalCollection              | SimCalorimeterHit     |         |
+   | LumiCalCollection            | SimCalorimeterHit     |         |
+   | MCParticle                   | MCParticle            |         |
+   | MCTruthMarlinTrkTracksLink   | LCRelation            |         |
+   | MUON                         | CalorimeterHit        |         |
+   | MarlinTrkTracks              | Track                 |         |
+   | MarlinTrkTracksMCTruthLink   | LCRelation            |         |
+   | PandoraClusters              | Cluster               |         |
+   | PandoraPFANewStartVertices   | Vertex                |         |
+   | PandoraPFOs                  | ReconstructedParticle |         |
+   | PrimaryVertex                | Vertex                |         |
+   | PrimaryVertex_RP             | ReconstructedParticle |         |
+   | RelationBCalHit              | LCRelation            |         |
+   | RelationLHcalHit             | LCRelation            |         |
+   | RelationLcalHit              | LCRelation            |         |
+   | RelationMuonHit              | LCRelation            |         |
+   | SETCollection                | SimTrackerHit         |         |
+   | SETSpacePointRelations       | LCRelation            |         |
+   | SETSpacePoints               | TrackerHit            |         |
+   | SETTrackerHitRelations       | LCRelation            |         |
+   | SETTrackerHits               | TrackerHitPlane       |         |
+   | SITCollection                | SimTrackerHit         |         |
+   | SITTrackerHitRelations       | LCRelation            |         |
+   | SITTrackerHits               | TrackerHitPlane       |         |
+   | SiTracks                     | Track                 |         |
+   | SubsetTracks                 | Track                 |         |
+   | TPCCollection                | SimTrackerHit         |         |
+   | TPCLowPtCollection           | SimTrackerHit         |         |
+   | TPCSpacePointCollection      | SimTrackerHit         |         |
+   | TPCTrackerHitRelations       | LCRelation            |         |
+   | TPCTrackerHits               | TrackerHit            |         |
+   | VXDCollection                | SimTrackerHit         |         |
+   | VXDTrackerHitRelations       | LCRelation            |         |
+   | VXDTrackerHits               | TrackerHitPlane       |         |
+   | YokeBarrelCollection         | SimCalorimeterHit     |         |
+   | YokeEndcapsCollection        | SimCalorimeterHit     |         |
 
-The most common used is MCParticle and PandoraPFOs. 
-For MCParticle, the detail information are
-[id]| index | PDG | px, py, pz | px_ep, py_ep, pz_ep | energy | gen | [simstat] | vertex x, y, z | endpoint x, y, z | mass | charge | spin | colorflow | [parents] - [daughters]
+   The most common used is MCParticle and PandoraPFOs. 
+   For MCParticle, the detail information are
+   [id]| index | PDG | px, py, pz | px_ep, py_ep, pz_ep | energy | gen | [simstat] | vertex x, y, z | endpoint x, y, z | mass | charge | spin | colorflow | [parents] - [daughters]
 
-For PandoraPFOs, the detail information are
+   For PandoraPFOs, the detail information are
 
-[id]| com | type | momentum | energy | mass | charge | position ( x,y,z ) | pidUsed | GoodnessOfPID | covariance( px,py,pz,E ) | particles([id]) | tracks ([id]) | clusters ([id]) | particle ids ([id],PDG,(type)) | vertices
+   [id]| com | type | momentum | energy | mass | charge | position ( x,y,z ) | pidUsed | GoodnessOfPID | covariance( px,py,pz,E ) | particles([id]) | tracks ([id]) | clusters ([id]) | particle ids ([id],PDG,(type)) | vertices
 
-The way to call this variables can be found at http://lcio.desy.de/v02-09/doc/doxygen_api/html/namespaces.html, which is all the c++ API for lcio.
-
-
-
-
-
-
-## whizard basic introduction
-every time when you want to change the model or generate a new physics channel, you should change whizard.prc file and recompile whizard.
-	The model file is in the ./conf/models/*.mdl
-
-after compile the whizard, you can use it following these steps
-  - make a new folder
-  - make a soft link to the whizard executable program "whizard", which should in $WHIZARD_PATH/bin/whizard
-  - put whizard.in, whizard.cut1, whizard.cut5, whizard.prc, whizard.mdl files in the folder.
-  - edit whizard.in, whizard.cut1 and whizard.cut5
-  - run whizard with  ./whizard
+   The way to call this variables can be found at http://lcio.desy.de/v02-09/doc/doxygen_api/html/namespaces.html, which is all the c++ API for lcio.
 
 
 
-   
+
+
+
+### whizard basic introduction
+For a member of ILC group, Whizard is usually be installed on the server, try to find it and install it on your account. Here is some tips:
+1. every time when you want to change the model or generate a new physics channel, you should change whizard.prc file and recompile whizard.
+   The model file is in the ./conf/models/xxx.mdl
+
+2. after compile the whizard, you can use it following these steps
+	- make a new folder
+	- make a soft link to the whizard executable program "whizard", which should in $WHIZARD_PATH/bin/whizard
+	- put whizard.in, whizard.cut1, whizard.cut5, whizard.prc, whizard.mdl files in the folder.
+	- edit whizard.in, whizard.cut1 and whizard.cut5
+	- run whizard with  ./whizard
+
+
+
+
 
 
 
