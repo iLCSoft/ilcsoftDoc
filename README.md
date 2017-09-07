@@ -181,7 +181,7 @@ In this steering file, it contains many processors supplied by ILCSoft. But it i
 ```
 The steering file uses XML language, which is a markup language, here is the usage of [xml](http://www.xmlfiles.com/xml/xml_usedfor.asp). 
 
-For the steering file, it begins and ends with </marlin> *** </marlin>. Between this, it contains three section  	
+For the steering file, it begins and ends with ` <marlin> *** </marlin>`. Between this, it contains three section  	
 ```
 <execute>
     <processor name="[You choose a name to describe the processor, e.g.] NameA"/>
