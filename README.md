@@ -64,6 +64,7 @@ http://ilfsoft.desy.de/dbd/generated/
 
 The sample file name in the ILC group will be
 rv01-19-04_lcgeo.sv01-19-04_lcgeo.mILD_l4_v02.E250-TDR_ws.I106479.Pe2e2h.eL.pR.n001_012.d_rec_00008603_6.slcio
+
 |short name | meaning  | example | explaination |
 |:---------:|:--------:|:-------:|:------------:|
 |rv | reconstruction software version|  01-19-04_lcgeo |                                                    |
@@ -120,6 +121,7 @@ To run Marlin, first you need a steering file,
    - Put ./action.sh into the same folder, change the PROJECTNAME in the action, and run
    ./action.sh
    - When running this script, five folders will be created
+
 |   folder   |  meaning                |
 |:----------:|:-----------------------:|
 |  build     |  all compling file      |
@@ -127,6 +129,7 @@ To run Marlin, first you need a steering file,
 |  include   |  head file              |
 |  xml       |  steering file          |
 |  lib       |  your processor library |
+
    - go to xml folder, a default steering file has been created, change this steering file with the processors you want, then run it with
    Marlin mysteer.xml
 
