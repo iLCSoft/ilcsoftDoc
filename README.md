@@ -44,6 +44,17 @@ If you are new to git and GitHub, have a look at this tutorial:
 
 ## A Brief Introduction for how to use ILCSoft packages
 Here is just a brief introduction for explaning the meaning and the usage of different packages of ILCSoft. The detail manual of each package can be found in their own README file.
+This introduction is organised as the following:
+
+    1. How to generate monte-carlo events ---- whizard basic introduction.
+    2. How to simulate events.
+    3. The name rules for events samples in ILC group.
+    4. Basic tools to check the events.
+    5. How to run Marlin for analysis.
+    6. Marlin processors for ILCSoft ---- a short introduction for some processors.
+    7. How to create a new Marlin processor.
+    8. Slcio file structure and lcio program API ---- what one should know for writing a new processor.
+    9. How to program for a new Marlin processor.
 
 ### Work flow for a new analysis 
 When one wants to analyse a physics process, the typical work flow may look as following:
@@ -73,7 +84,7 @@ For a member of ILC group, Whizard is usually be installed on the server, try to
 For other user, Whizard is not included in the ILCSoft package, here you can download [Whizard](https://whizard.hepforge.org/), and find the manual.
 
 
-### how to simulate events
+### How to simulate events
 Let's suppose that you already know how to use Whizard, and have generated a stdhep file. Then you can simulate the events with "Mokka/DD4Hep".
 
 
@@ -181,7 +192,7 @@ In this steering file, it contains many processors supplied by ILCSoft. But it i
 ```
 The steering file uses XML language, which is a markup language, here is the usage of [xml](http://www.xmlfiles.com/xml/xml_usedfor.asp). 
 
-For the steering file, it begins and ends with ` <marlin> *** </marlin>`. Between this, it contains three section  	
+For the steering file, it begins and ends with ` <marlin> *** </marlin>`. Between this block, it contains three section  	
 ```
 <execute>
     <processor name="[You choose a name to describe the processor, e.g.] NameA"/>
@@ -208,7 +219,8 @@ For the steering file, it begins and ends with ` <marlin> *** </marlin>`. Betwee
 </processor>
 
 ```
-In this example, you can get two out put collection "Isoleps" and "PFOsWithoutIsoleps", they can be used for further analysis. In some other processor, e.g. lctuple (which change the information in a slcio file into a root file), you can get a root file as the output.
+In this example, you can get two output collections "Isoleps" and "PFOsWithoutIsoleps", they can be used for further analysis in other processors. 
+In some other processors, e.g. lctuple (which change the information in a slcio file into a root file), you can get a root file as the output.
 
 ### The Marlin processor
 
@@ -222,18 +234,18 @@ A summary for Marlin processor.  More to be added...
 
 
 ### How to create a new Marlin processor
-   The most easy way to create a new Marlin processor is
+   The most easy way to create a new Marlin processor is copying an example processor, instead of rewritting all of them. You can do this by
 
-   ` ./copy_new_processor.sh  old_processor_directory   new_processor_name`
+   ` ./copy_new_processor.sh  new_processor_name`
 
    This script can be decomposed by following steps:
-   
-   - You'd better copy an old processer with .cc and .h file into a new folder and change the processer, instead of rewritting all of them.
-   - Change the processor class name into a new one!! 
+
+   - Copy an example processer that supplied by ILCSoft  with .cc and .h file into a new folder and change the processer.
+   - Change the processor class name into the  new name!! 
    NOTE: this is important, or it may conflict with existed processors.
-   - Put ./action.sh into the same folder, change the PROJECTNAME in the action, and run
+   - Put ./action.sh into the bin folder, change the PROJECTNAME in the action, and run
    ./bin/action.sh
-   - When running this script, five folders will be created
+   - When running this action.sh, six folders will be created, and all files will be put into their specific folder.
 
     |   folder   |  meaning                |
     |:----------:|:-----------------------:|
@@ -245,8 +257,13 @@ A summary for Marlin processor.  More to be added...
     |  bin       |  execute file           |
 
    - go to xml folder, a default steering file has been created, change this steering file with the processors you want, then run it with
-   Marlin mysteer.xml
-   - in the next time, when you change something for this processor and need to recompile it, just run ./bin/action.sh.
+   ` Marlin mysteer.xml`
+   - in the next time, when you change something for this processor and need to recompile it, just run `./bin/action.sh`.
+
+
+   The copy_new_processor.sh script can also be used for copy any other exist processor to a new one by
+   ` ./copy_new_processor.sh  old_processor_directory   new_processor_name`
+   
 
 
 
@@ -331,19 +348,21 @@ A summary for Marlin processor.  More to be added...
    For MCParticle, the detail information are
 
    |[id]| index | PDG | px, py, pz | px_ep, py_ep, pz_ep | energy | gen | [simstat] | vertex x, y, z | endpoint x, y, z | mass | charge | spin | colorflow | [parents] - [daughters]|
+   |----|-------|-----|------------|---------------------|--------|-----|-----------|----------------|------------------|------|--------|------|-----------|------------------------|
    
    You can use the command like getPDG() to get the information of a MCParticle.
 
    For PandoraPFOs, the detail information are
 
    |[id]| com | type | momentum | energy | mass | charge | position ( x,y,z ) | pidUsed | GoodnessOfPID | covariance( px,py,pz,E ) | particles([id]) | tracks ([id]) | clusters ([id]) | particle ids ([id],PDG,(type)) | vertices|
+   |----|-----|------|----------|--------|------|--------|--------------------|---------|---------------|--------------------------|-----------------|---------------|-----------------|--------------------------------|---------|
 
    The way to call this variables can be found at [here](http://lcio.desy.de/v02-09/doc/doxygen_api/html/namespaces.html), which is all the c++ API for lcio.
 
 
 
 ### How to program for a new Marlin processor
-Need to add this...
+Need to add sth here...
 
 
 
