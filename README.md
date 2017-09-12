@@ -43,7 +43,7 @@ If you are new to git and GitHub, have a look at this tutorial:
 
 
 ## A Brief Introduction for how to use ILCSoft packages
-Here is just a brief introduction for explaning the meaning and the usage of different packages of ILCSoft. The detail manual of each package can be found in their own README file.
+Here is just a brief introduction for explaning the meaning and the usage of different packages of ILCSoft. 
 This introduction is organised as the following:
 
     1. How to generate monte-carlo events ---- whizard basic introduction.
@@ -55,6 +55,9 @@ This introduction is organised as the following:
     7. How to create a new Marlin processor.
     8. Slcio file structure and lcio program API ---- what one should know for writing a new processor.
     9. How to program for a new Marlin processor.
+
+In this introduction, we only explain some basic usage of the ILCSoft, the manual of each package can be found in their own README file.
+ILCSoft contains many subpackages, there is a example folder in each package, where you can find detail examples.
 
 ### Work flow for a new analysis 
 When one wants to analyse a physics process, the typical work flow may look as following:
@@ -362,8 +365,139 @@ A summary for Marlin processor.  More to be added...
 
 
 ### How to program for a new Marlin processor
-Need to add sth here...
+  We recommand you to begin your first processor with the Marlin [examples](https://github.com/iLCSoft/Marlin/tree/master/examples/mymarlin). If you are a experienced programmer, here is some [iLCSoft general
+documentation](http://ilcsoft.desy.de/portal/general_documentation/index_eng.html).
 
+  For each Marlin processor, it at least contains two files: MyProcessor.h MyProcessor.cc. 
+  In MyProcessor.h, the file structure will be
+
+
+```
+#ifndef MyProcessor_h
+#define MyProcessor_h 1
+
+#include "marlin/Processor.h"
+#include "lcio.h"
+#include <string>
+
+using namespace lcio ;
+using namespace marlin ;
+
+class MyProcessor : public Processor {
+  
+ public:
+  
+  virtual Processor*  newProcessor() { return new MyProcessor ;  }
+  
+  MyProcessor() ;
+
+  virtual void init() ;
+  
+  virtual void processRunHeader( LCRunHeader* run  ) ;
+
+  virtual void processEvent( LCEvent * evt  ) ; 
+  
+  virtual void check( LCEvent * evt  ) ; 
+  
+  virtual void end() ;
+  
+	// declare your new methods here
+ protected:
+
+  std::string _colName ;
+
+  // tell you which event is running 
+  int _nRun ;
+  int _nEvt ;
+
+	// declare your new variables here
+} ;
+
+#endif
+
+```
+It has the declarations of six basic methods: constructor(), init(), processRunHeader(), processEvent(), check() and end(), which will be realized in MyProcessor.cc file.
+The source file's basic structure will be:
+
+```
+#include "MyProcessor.h"
+#include <iostream>
+#include <EVENT/LCCollection.h>
+#include <EVENT/MCParticle.h>
+#include "marlin/VerbosityLevels.h"
+
+using namespace lcio ;
+using namespace marlin ;
+
+MyProcessor aMyProcessor ;
+
+MyProcessor::MyProcessor() : Processor("MyProcessor") {
+	//recieve input parameters by registerInputCollection method
+
+    // register steering parameters: name, description, class-variable, default value
+	// the related information should be provided by steering file.
+	// the Collection name should exist in the input slcio file, you can check that by anajob *.slcio.
+    registerInputCollection( LCIO::MCPARTICLE,
+            "CollectionName" , 
+            "Name of the MCParticle collection"  ,
+            _colName ,
+            std::string("MCParticle")
+     );
+}
+
+void MyProcessor::init() { 
+	//initialization --- sometimes the input is not one file, but many files (or some files combined to one file), this tell you which file you are using.
+    _nRun = 0 ;
+	//initialization --- tell you in one specific file which event is running.
+    _nEvt = 0 ;
+ }
+
+void MyProcessor::processRunHeader( LCRunHeader* run ) { 
+    _nRun++ ;
+ } 
+
+void MyProcessor::processEvent( LCEvent * evt  ) { 
+
+    // this method will run for every event. 
+    // put your main analysis code here.
+
+    // read collection that input in the steer file.
+    LCCollection* col = evt->getCollection( _colName  ) ;
+
+    // this will only be entered if the collection is available
+	if( col != NULL  ){
+
+        int nMCP = col->getNumberOfElements()  ;
+
+        //loop for all particles of the collection in one event.
+		for(int i=0; i< nMCP ; i++){
+
+            // use this pointer for some operations
+            MCParticle* p = dynamic_cast<MCParticle*>( col->getElementAt( i  )  ) ;
+
+		} 
+	}
+    _nEvt ++ ;
+ }
+
+void MyProcessor::check( LCEvent * evt  ) { 
+    // could be used to fill checkplots in reconstruction processor
+ }
+
+void MyProcessor::end(){ 
+	// print some information when the end of the whole Marlin program.
+}
+
+/*
+void MyProcessor::some_your_own_method(){ 
+	// write your own method.
+}
+*/
+```
+
+
+You can also use many other functions with multi files, and he need to declare them as the methods of class MyProcessor and include "MyProcessor.h".    
+But one thing should be notised that the processor name need to be different from other default ones, so you'd better change MyProcessor with some other special name.
 
 
 
