@@ -1,14 +1,25 @@
 #!/bin/bash
 
-if [[ $# != 2 || $# !=0 ]] ; then 
-	echo "Error: need 0/2 argument!"
-	echo "Usage: ./copy_new_Processor.sh  [old_process   new_processor]"
+if [[ $# != 2 ]] ; then 
+	if [[ $# != 0 ]] ; then 
+		echo "Error: need 0/2 argument!"
+		echo "Usage: ./copy_new_Processor.sh  [old_process   new_processor]"
+	fi
 fi
-
-basic_folder=$ILCSOFT/Marlin/v01-09/examples/mymarlin/
-
 # this folder should have an action.sh file, which is used to compile processor in the future.
 # I suppose this file will be put in the same directory with copy_new_Processor.sh
+
+
+
+
+basic_folder=$ILCSOFT/Marlin/v01-12/examples/mymarlin/
+#this Marlin version 01-12 should be updated for every new version
+
+
+
+
+
+
 action_file_folder="$( cd "$( dirname "${BASH_SOURCE[0]}"  )" && pwd  )"
 
 if [[ $# == 2 ]] ; then 

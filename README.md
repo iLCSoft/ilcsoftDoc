@@ -157,39 +157,31 @@ In this steering file, it contains many processors supplied by ILCSoft. But it i
 
 	<global>
 		<parameter name="LCIOInputFiles">
+		<!-- put some input slcio files here-->   
 		</parameter>
 		<parameter name="GearXMLFile"> GearOutput.xml </parameter> 
-		<parameter name="MaxRecordNumber" value="0" />  
+		<!-- tells Marlin which detector structure should use, you can find this file from ILDConfig folder and put it in the same path with this steering file-->   
+		<parameter name="MaxRecordNumber" value="0" />   
+		<!-- tell Marlin to run the first n events, if n==0, then run all events -->   
 		<parameter name="SkipNEvents" value="0" />  
+		<!-- tell Marlin to skip the first n events, if n==0, then run from the first events -->   
 		<parameter name="SupressCheck" value="false" />  
 		<parameter name="Verbosity" options="DEBUG0-4,MESSAGE0-4,WARNING0-4,ERROR0-4,SILENT">WARNING</parameter>
+		<!-- tell what debug information will be shown on the screen -->   
 		<parameter name="AllowToModifyEvent" value="true" />
+		<!-- give Marlin right to modify events -->   
 	</global>
 
 
 	<processor name="MyIsolatedLeptonTaggingProcessor" type="IsolatedLeptonTaggingProcessor">
+		<!-- some parameters for IsolatedLeptonTaggingProcessor, A processor may need many parameters, generally if you don't set them, the processor will use default values-->   
 		<parameter name="CosConeLarge" type="float">0.95 </parameter>
 		<parameter name="CosConeSmall" type="float">0.98 </parameter>
 		<parameter name="CutOnTheISOElectronMVA" type="float"> 0.5 </parameter>
 		<parameter name="CutOnTheISOMuonMVA" type="float">0.7 </parameter>
+		<!-- the weight file for this processor-->   
 		<parameter name="DirOfISOElectronWeights" type="string"> /afs/desy.de/project/ilcsoft/sw/x86_64_gcc48_sl6/v01-17-09/MarlinReco/v01-14/Analysis/IsolatedLeptonTagging/example/isolated_electron_weights </parameter>
 		<parameter name="DirOfISOMuonWeights" type="string"> /afs/desy.de/project/ilcsoft/sw/x86_64_gcc48_sl6/v01-17-09/MarlinReco/v01-14/Analysis/IsolatedLeptonTagging/example/isolated_muon_weights </parameter>
-		<parameter name="InputPandoraPFOsCollection" type="string" lcioInType="ReconstructedParticle"> PandoraPFOs </parameter>
-		<parameter name="IsSelectingOneIsoLep" type="bool"> false </parameter>
-		<parameter name="MinPForElectron" type="float">5 </parameter>
-		<parameter name="MinPForMuon" type="float">5 </parameter>
-		<parameter name="MinEOverPForElectron" type="float">0.5 </parameter>
-		<parameter name="MaxEOverPForElectron" type="float">1.3 </parameter>
-		<parameter name="MaxEOverPForMuon" type="float">0.3 </parameter>
-		<parameter name="MinEecalOverTotEForElectron" type="float">0.9 </parameter>
-		<parameter name="MinEyokeForMuon" type="float">1.2 </parameter>
-		<parameter name="MaxD0SigForElectron" type="float">50 </parameter>
-		<parameter name="MaxD0SigForMuon" type="float">5 </parameter>
-		<parameter name="MaxZ0SigForElectron" type="float">5 </parameter>
-		<parameter name="MaxZ0SigForMuon" type="float">5 </parameter>
-		<parameter name="OutputIsoLeptonsCollection" type="string" lcioOutType="ReconstructedParticle"> Isoleps </parameter>
-		<parameter name="OutputPFOsWithoutIsoLepCollection" type="string" lcioOutType="ReconstructedParticle"> PFOsWithoutIsoleps </parameter>
-		<parameter name="Verbosity" type="string"> SILENT </parameter>
 	</processor>
 
 </marlin>
@@ -235,16 +227,11 @@ You can check which marlin processor library has been loaded by a bash command
 `echo $MARLIN_DLL`
 
 
-A summary for Marlin processor.  More to be added...
+A summary for Marlin processor.  
 
-#### how to create a ROOT file out of a LCIO file for the use of LC Tuple
-	e.g. Marlin lctuple.xml --global.GearXMLFile=gear_ILD_l4_v02_dd4hep.xml 
-(change data considering your own simulation)
+And some link to differet processor should be added...
 
-this creates a file <...>_REC_lctuple.root which can be analyzed.
-For more information about LCTuple, see 
-[here](https://github.com/iLCSoft/LCTuple)
-	
+
 ### How to create a new Marlin processor
    The most easy way to create a new Marlin processor is copying an example processor, instead of rewritting all of them. You can do this by
 
@@ -505,8 +492,11 @@ void MyProcessor::some_your_own_method(){
 ```
 
 
-You can also use many other functions with multi files, and he need to declare them as the methods of class MyProcessor and include "MyProcessor.h".    
-But one thing should be notised that the processor name need to be different from other default ones, so you'd better change MyProcessor with some other special name.
+You can also use many other functions with one file or multi files. 
+You would better to declare them as the methods of class MyProcessor and include "MyProcessor.h",    
+or those methods may conflict with other existed processor.
+Another thing should be notised that the processor name need to be different from other default ones, 
+so you'd better change MyProcessor with some other special name.
 
 
 
