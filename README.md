@@ -44,7 +44,18 @@ If you are new to git and GitHub, have a look at this tutorial:
 
 ## A Brief Introduction for how to use ILCSoft packages
 Here is just a brief introduction for explaning the meaning and the usage of different packages of ILCSoft. 
-This introduction is organised as the following:
+When one wants to analyse a physics process, the typical work flow may look as following:
+
+- Generate monte-carlo particles for that physics process with a generator, e.g. Whizard+Pythia, which will generate stdhep files with n00 MB/file, the size of file depanding on the setting of the generator. 
+  Split a stdhep file to many small files (xx MB/file). Here the "split"  and the "merge" in step 5 is not necessary for everytime. But in the next step, the simulation process will store huge information for each events, 
+  so if you don't split the file here, the final file may be too large.
+- Simulate particle samples with Mokka/DD4hep, which will generate "slcio" files with GB/file. The slcio file is a standard file for ILCSoft.
+- Reconstruct particle information with Marlin processors, which will generate two kinds of files -- "DST" files and "REC" files.
+- Merge those "DST"/"REC" files into one or several bigger files. The "REC" file contains all infomation for generating, simulation and reconstruction. The "DST" file only contain some of them. Usually, the "DST" file is what we use for analysis, but you can also check the "REC" file for more details.
+- Write a steering file for Marlin platform, with processors supplied by ILCSoft or your own processors, to complete your analysis. 
+- In most of the cases, you need to write your own processor.
+
+This introduction is organised as the following to explain above steps:
 
     1. How to generate monte-carlo events ---- whizard basic introduction.
     2. How to simulate events.
@@ -58,19 +69,6 @@ This introduction is organised as the following:
 
 In this introduction, we only explain some basic usage of the ILCSoft, the manual of each package can be found in their own README file.
 ILCSoft contains many subpackages, there is a example folder in each package, where you can find detail examples.
-
-### Work flow for a new analysis 
-When one wants to analyse a physics process, the typical work flow may look as following:
-
-1. Generate monte-carlo particles for that physics process with a generator, e.g. Whizard+Pythia, which will generate stdhep files with n00 MB/file, the size of file depanding on the setting of the generator.
-2. Split a stdhep file to many small files (xx MB/file). Here the "split"  and the "merge" in step 5 is not necessary for everytime. But in the next step, the simulation process will store huge information for each events, if you don't split the file here, the final file may be too large.
-3. Simulate particle samples with Mokka/DD4hep, which will generate "slcio" files with GB/file. The slcio file is a standard file for ILCSoft.
-4. Reconstruct particle information with Marlin processors, which will generate two kinds of files -- "DST" files and "REC" files.
-5. Merge those "DST"/"REC" files into one or several bigger files. The "REC" file contains all infomation for generating, simulation and reconstruction. The "DST" file only contain some of them. Usually, the "DST" file is what we use for analysis, but you can also check the "REC" file for more details.
-6. Write a steering file for Marlin platform, with processors supplied by ILCSoft or your own processors, to complete your analysis. 
-7. In most of the cases, you need to write your own processor.
-
-In the following, we will explain each steps.
 
 ### whizard basic introduction
 For a member of ILC group, Whizard is usually be installed on the server, try to find it and install it on your account. Here is some tips:
@@ -343,7 +341,8 @@ And some link to differet processor should be added...
    | YokeBarrelCollection         | SimCalorimeterHit     |         |
    | YokeEndcapsCollection        | SimCalorimeterHit     |         |
 
-   The way to call these collections and their values  can be found at [here](http://lcio.desy.de/v02-09/doc/doxygen_api/html/namespaces.html), which is all the c++ API for lcio.
+   The way to call these collections and their values  can be found at [here](http://lcio.desy.de/v02-09/doc/doxygen_api/html/namespaces.html), which is all the c++ API for lcio. 
+   The lcio use many c++ STL grammars. if you are not familiar with STL, there is a website for some [explaination](http://www.cplusplus.com/reference/stl/)
 
 
 
