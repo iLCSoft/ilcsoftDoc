@@ -238,7 +238,9 @@ A summary for Marlin processor.  More to be added...
 	e.g. Marlin lctuple.xml --global.GearXMLFile=gear_ILD_l4_v02_dd4hep.xml 
 (change data considering your own simulation)
 
-this creates a file <...>_REC_lctuple.root which can be analyzed
+this creates a file <...>_REC_lctuple.root which can be analyzed.
+For more information about LCTuple, see 
+[here](https://github.com/iLCSoft/LCTuple)
 	
 ### How to create a new Marlin processor
    The most easy way to create a new Marlin processor is copying an example processor, instead of rewritting all of them. You can do this by
