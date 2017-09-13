@@ -343,20 +343,7 @@ And some link to differet processor should be added...
    | YokeBarrelCollection         | SimCalorimeterHit     |         |
    | YokeEndcapsCollection        | SimCalorimeterHit     |         |
 
-   The most common used is MCParticle and PandoraPFOs. 
-   For MCParticle, the detail information are
-
-   |[id]| index | PDG | px, py, pz | px_ep, py_ep, pz_ep | energy | gen | [simstat] | vertex x, y, z | endpoint x, y, z | mass | charge | spin | colorflow | [parents] - [daughters]|
-   |----|-------|-----|------------|---------------------|--------|-----|-----------|----------------|------------------|------|--------|------|-----------|------------------------|
-   
-   You can use the command like getPDG() to get the information of a MCParticle.
-
-   For PandoraPFOs, the detail information are
-
-   |[id]| com | type | momentum | energy | mass | charge | position ( x,y,z ) | pidUsed | GoodnessOfPID | covariance( px,py,pz,E ) | particles([id]) | tracks ([id]) | clusters ([id]) | particle ids ([id],PDG,(type)) | vertices|
-   |----|-----|------|----------|--------|------|--------|--------------------|---------|---------------|--------------------------|-----------------|---------------|-----------------|--------------------------------|---------|
-
-   The way to call this variables can be found at [here](http://lcio.desy.de/v02-09/doc/doxygen_api/html/namespaces.html), which is all the c++ API for lcio.
+   The way to call these collections and their values  can be found at [here](http://lcio.desy.de/v02-09/doc/doxygen_api/html/namespaces.html), which is all the c++ API for lcio.
 
 
 
