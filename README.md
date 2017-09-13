@@ -89,13 +89,15 @@ For other user, Whizard is not included in the ILCSoft package, here you can dow
 
 ### How to simulate events
 Let's suppose that you already know how to use Whizard, and have generated a stdhep file. Then you can simulate the events with "Mokka/DD4Hep".
-
+The command is ddsim-- <...> 
+before, you probably have to initialize the iLCSoft environment with a command like this:  
+	 	. /afs/desy.de/project/ilcsoft/sw/x86_64_gcc49_sl6/v01-19-04/init_ilcsoft.sh
 
 
 ### The events samples in ILC group
 In ILC group, many SM and new physics event samples have already been generated and simulated.
 The detail information of the SM event samples can be found at 
-http://ilfsoft.desy.de/dbd/generated/
+http://ilcsoft.desy.de/dbd/generated/
 
 The sample file name in the ILC group will look like
 
@@ -235,7 +237,14 @@ You can check which marlin processor library has been loaded by a bash command
 
 A summary for Marlin processor.  More to be added...
 
+#### how to create a ROOT file out of a LCIO file for the use of LC Tuple
+	e.g. Marlin lctuple.xml --global.GearXMLFile=gear_ILD_l4_v02_dd4hep.xml 
+(change data considering your own simulation)
 
+this creates a file <...>_REC_lctuple.root which can be analyzed.
+For more information about LCTuple, see 
+[here](https://github.com/iLCSoft/LCTuple)
+	
 ### How to create a new Marlin processor
    The most easy way to create a new Marlin processor is copying an example processor, instead of rewritting all of them. You can do this by
 
