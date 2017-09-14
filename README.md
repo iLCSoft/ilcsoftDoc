@@ -46,16 +46,18 @@ If you are new to git and GitHub, have a look at this tutorial:
 Here is just a brief introduction for explaning the meaning and the usage of different packages of ILCSoft. 
 When one wants to analyse a physics process, the typical work flow may look as following:
 
-- Generate monte-carlo particles for that physics process with a generator, e.g. Whizard+Pythia, which will generate stdhep files with n00 MB/file, the size of file depanding on the setting of the generator. 
-  Split a stdhep file to many small files (xx MB/file). Here the "split"  and the "merge" in step 5 is not necessary for everytime. But in the next step, the simulation process will store huge information for each events, 
-  so if you don't split the file here, the final file may be too large.
+- Generate monte-carlo particles for that physics process with a generator, e.g. Whizard+Pythia.
+  (If you generate very large stdhep files, e.g. x00 MB/file, it's a good idea to split a stdhep file to many small files (xx MB/file). Because the simulation process will store huge information for each events, 
+  than the final file may be too large.
+  If you decide to splite the stdhep file, when finishing simulation, you also have to merge those slcio files into one or several bigger files.)
 - Simulate particle samples with Mokka/DD4hep, which will generate "slcio" files with GB/file. The slcio file is a standard file for ILCSoft.
 - Reconstruct particle information with Marlin processors, which will generate two kinds of files -- "DST" files and "REC" files.
-- Merge those "DST"/"REC" files into one or several bigger files. The "REC" file contains all infomation for generating, simulation and reconstruction. The "DST" file only contain some of them. Usually, the "DST" file is what we use for analysis, but you can also check the "REC" file for more details.
+  The "REC" file contains all infomation for generating, simulation and reconstruction. The "DST" file only contain some of them. 
+  Usually, the "DST" file is suitable for analysis, but you can also check the "REC" file for more details.
 - Write a steering file for Marlin platform, with processors supplied by ILCSoft or your own processors, to complete your analysis. 
 - In most of the cases, you need to write your own processor.
 
-This introduction is organised as the following to explain above steps:
+Following these steps, this introduction is organised as the following:
 
     1. How to generate monte-carlo events ---- whizard basic introduction.
     2. How to simulate events.
@@ -143,9 +145,15 @@ The ILCSoft provides many tools to check them for different purposes.
 When you have the events, you can analyse them in the Marlin platform.
 To run Marlin, first you need a steering file, you can create a typical steering file by a command
 
-` Marlin mysteer.xml`
+` Marlin -x >> mysteer.xml`
 
-In this steering file, it contains many processors supplied by ILCSoft. But it is so complicated, we can use a simple one for explaination.
+In this steering file "mysteer.xml", it contains many processors supplied by ILCSoft. 
+Or you can find a more practical example at [here](https://github.com/iLCSoft/ILDConfig/blob/master/StandardConfig/lcgeo_current/bbudsc_3evt_stdreco_dd4hep.xml)
+
+But they are so complicated, we can use a simple one for explaination. 
+This is a typical steering file, the file ends with .xml 
+The steering file uses XML language, which is a markup language, here is the usage of [xml](http://www.xmlfiles.com/xml/xml_usedfor.asp). 
+In this file, it only uses one processor --- IsolatedLeptonTaggingProcessor, and some parameters of this processer use the default value. 
 
 ```
 <marlin>
@@ -172,7 +180,7 @@ In this steering file, it contains many processors supplied by ILCSoft. But it i
 
 
 	<processor name="MyIsolatedLeptonTaggingProcessor" type="IsolatedLeptonTaggingProcessor">
-		<!-- some parameters for IsolatedLeptonTaggingProcessor, A processor may need many parameters, generally if you don't set them, the processor will use default values-->   
+		<!-- some parameters for IsolatedLeptonTaggingProcessor --> 
 		<parameter name="CosConeLarge" type="float">0.95 </parameter>
 		<parameter name="CosConeSmall" type="float">0.98 </parameter>
 		<parameter name="CutOnTheISOElectronMVA" type="float"> 0.5 </parameter>
@@ -185,9 +193,8 @@ In this steering file, it contains many processors supplied by ILCSoft. But it i
 </marlin>
 
 ```
-The steering file uses XML language, which is a markup language, here is the usage of [xml](http://www.xmlfiles.com/xml/xml_usedfor.asp). 
 
-For the steering file, it begins and ends with ` <marlin> *** </marlin>`. Between this block, it contains three section  	
+In the steering file, it begins and ends with ` <marlin> *** </marlin>`. Between this block, it always contains three section  	
 ```
 <execute>
     <processor name="[You choose a name to describe the processor, e.g.] NameA"/>
@@ -206,11 +213,11 @@ For the steering file, it begins and ends with ` <marlin> *** </marlin>`. Betwee
 	...
 </global>
 
-<processor name="NameA" type="[The processor name, e.g.] IsolatedLeptonTaggingProcessor">
+<processor name="[this name should be the same with which is in the "execute" block] NameA" type="[The real processor name, e.g.] IsolatedLeptonTaggingProcessor">
     # This is for find Isolated Lepton in the events samples.
     # You need to supply the necessary parameters for this processor. e.g.
     <parameter name="CosConeLarge" type="float">0.95 </parameter>
-    # ...
+    # A processor may need many parameters, generally if you don't set them, the processor will use default values
 </processor>
 
 ```
