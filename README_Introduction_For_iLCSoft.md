@@ -48,13 +48,24 @@ To initialize the iLCSoft environment with a command like this:
 
 `	source  /The path of your iLCSoft/v01-19-04/init_ilcsoft.sh`
 
-Then you can use all iLCSoft command.
+ Then you can use all iLCSoft command.
 
 ## How to simulate events
 Let's suppose that you already know how to use Whizard, and have generated a stdhep file. Then you can simulate the events with "Mokka/DD4Hep".
 
-The command is 
-`ddsim-- <...> `
+run a simulation from an stdhep generator file:
+
+```
+ddsim --inputFiles ./bbudsc_3evt.stdhep --outputFile=./bbudsc_3evt.slcio \
+	--compactFile $lcgeo_DIR/ILD/compact/ILD_l4_v02/ILD_l4_v02.xml \
+	--steeringFile=./ddsim_steer.py  > ddsim.out 2>&1 &
+```
+
+while this is running, take the time and investigate the main configuration files used here
+
+   - ddsim_steer.py steering the simulation
+   -  ILD_l4_v02.xml the detctor geometry model
+
 
 
 ## The events samples in ILC group
