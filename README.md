@@ -240,9 +240,7 @@ You can check which marlin processor library has been loaded by a bash command
 `echo $MARLIN_DLL`
 
 
-A summary for Marlin processor.  
-
-And some link to differet processor should be added...
+The processors that relate to ILDAnalysis can be found [here](https://github.com/YancyW/ILDDoc)
 
 
 ### How to create a new Marlin processor
