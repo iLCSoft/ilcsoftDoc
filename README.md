@@ -102,29 +102,9 @@ The command is
 
 
 ### The events samples in ILC group
-In ILC group, many SM and new physics event samples have already been generated and simulated.
-The detail information of the SM event samples can be found at 
-http://ilcsoft.desy.de/dbd/generated/
 
-The sample file name in the ILC group will look like
-
-rv01-19-04_lcgeo.sv01-19-04_lcgeo.mILD_l4_v02.E250-TDR_ws.I106479.Pe2e2h.eL.pR.n001_012.d_rec_00008603_6.slcio
-
-|short name | meaning  | example | explaination |
-|:---------:|:--------:|:-------:|:------------:|
-|rv | reconstruction software version|  01-19-04_lcgeo |                                                    |
-|sv | simulation     software version|  01-19-04_lcgeo |                                                    |
-|m  | ILD detector   software version|  ILD_l4_v02     |  ILD detector version                              | 
-|E  | collider energy                |  250-TDR_ws     |  250 GeV collider                                  |
-|I  | Proc ID                        |  106479         |  each process has a unique id                      |   
-|P  | process name                   |  e2e2h          |  ee -> zh then z-> mu mu process                   | 
-|e  | beam polorization              |  eL             |  electron is left-handed                           | 
-|p  | beam polorization              |  pR             |  positron is right-handed                          | 
-|n  | job number                     |  001_012        |  the number for simulation group submitting the job|
-|d_ | Job ID                         |  rec_00008603_6 |  this is a rec file                                |
-
-In principle, one can re-generate all the same events with the same software setting.
-
+- ILD group ---- [ILD sample examples](https://github.com/YancyW/ILDDoc/blob/master/README.md).
+- xxx . 
 
 
 
@@ -282,77 +262,9 @@ The processors that relate to ILDAnalysis can be found [here](https://github.com
 ### Slcio file structure
    When you need to write a new Marlin processor, you have to know the structure of the slcio file.
    You can check the slcio file structure with anajob for a general information or dumpevent for details.
-   The following are the generally structure of a slcio file, the first list is the name that you can invoke them in your program, The second 
-   list is their types.
 
-   | Collection Name              | Collection Type       | Explanation|
-   |:----------------------------:|:---------------------:|:----------:|
-   | BCAL                         | CalorimeterHit        |         |
-   | BeamCalCollection            | SimCalorimeterHit     |         |
-   | BuildUpVertex                | Vertex                |         |
-   | BuildUpVertex_RP             | ReconstructedParticle |         |
-   | BuildUpVertex_V0             | Vertex                |         |
-   | BuildUpVertex_V0_RP          | ReconstructedParticle |         |
-   | ClupatraTrackSegments        | Track                 |         |
-   | ClupatraTracks               | Track                 |         |
-   | DistilledPFOs                | ReconstructedParticle |         |
-   | EcalBarrelCollection         | SimCalorimeterHit     |         |
-   | EcalEndcapRingCollection     | SimCalorimeterHit     |         |
-   | EcalEndcapsCollection        | SimCalorimeterHit     |         |
-   | EcalEndcapsCollectionDigi    | CalorimeterHit        |         |
-   | EcalEndcapsCollectionGapHits | CalorimeterHit        |         |
-   | EcalEndcapsCollectionRec     | CalorimeterHit        |         |
-   | EcalEndcapsRelationsSimDigi  | LCRelation            |         |
-   | EcalEndcapsRelationsSimRec   | LCRelation            |         |
-   | FTDCollection                | SimTrackerHit         |         |
-   | GammaGammaCandidateEtaPrimes | ReconstructedParticle |         |
-   | GammaGammaCandidateEtas      | ReconstructedParticle |         |
-   | GammaGammaCandidatePi0s      | ReconstructedParticle |         |
-   | GammaGammaParticles          | ReconstructedParticle |         |
-   | HCalBarrelRPCHits            | SimCalorimeterHit     |         |
-   | HCalECRingRPCHits            | SimCalorimeterHit     |         |
-   | HCalEndcapRPCHits            | SimCalorimeterHit     |         |
-   | HcalBarrelRegCollection      | SimCalorimeterHit     |         |
-   | HcalEndcapRingCollection     | SimCalorimeterHit     |         |
-   | HcalEndcapsCollection        | SimCalorimeterHit     |         |
-   | LCAL                         | CalorimeterHit        |         |
-   | LHCAL                        | CalorimeterHit        |         |
-   | LHCalCollection              | SimCalorimeterHit     |         |
-   | LumiCalCollection            | SimCalorimeterHit     |         |
-   | MCParticle                   | MCParticle            |         |
-   | MCTruthMarlinTrkTracksLink   | LCRelation            |         |
-   | MUON                         | CalorimeterHit        |         |
-   | MarlinTrkTracks              | Track                 |         |
-   | MarlinTrkTracksMCTruthLink   | LCRelation            |         |
-   | PandoraClusters              | Cluster               |         |
-   | PandoraPFANewStartVertices   | Vertex                |         |
-   | PandoraPFOs                  | ReconstructedParticle |         |
-   | PrimaryVertex                | Vertex                |         |
-   | PrimaryVertex_RP             | ReconstructedParticle |         |
-   | RelationBCalHit              | LCRelation            |         |
-   | RelationLHcalHit             | LCRelation            |         |
-   | RelationLcalHit              | LCRelation            |         |
-   | RelationMuonHit              | LCRelation            |         |
-   | SETCollection                | SimTrackerHit         |         |
-   | SETSpacePointRelations       | LCRelation            |         |
-   | SETSpacePoints               | TrackerHit            |         |
-   | SETTrackerHitRelations       | LCRelation            |         |
-   | SETTrackerHits               | TrackerHitPlane       |         |
-   | SITCollection                | SimTrackerHit         |         |
-   | SITTrackerHitRelations       | LCRelation            |         |
-   | SITTrackerHits               | TrackerHitPlane       |         |
-   | SiTracks                     | Track                 |         |
-   | SubsetTracks                 | Track                 |         |
-   | TPCCollection                | SimTrackerHit         |         |
-   | TPCLowPtCollection           | SimTrackerHit         |         |
-   | TPCSpacePointCollection      | SimTrackerHit         |         |
-   | TPCTrackerHitRelations       | LCRelation            |         |
-   | TPCTrackerHits               | TrackerHit            |         |
-   | VXDCollection                | SimTrackerHit         |         |
-   | VXDTrackerHitRelations       | LCRelation            |         |
-   | VXDTrackerHits               | TrackerHitPlane       |         |
-   | YokeBarrelCollection         | SimCalorimeterHit     |         |
-   | YokeEndcapsCollection        | SimCalorimeterHit     |         |
+   The ILD slcio file examples can be found [here](https://github.com/YancyW/ILDDoc/blob/master/dst/ild_dst_collections.md)
+
 
    The way to call these collections and their values  can be found at [here](http://lcio.desy.de/v02-09/doc/doxygen_api/html/namespaces.html), which is all the c++ API for lcio. 
    The lcio use many c++ STL grammars. if you are not familiar with STL, there is a website for some [explaination](http://www.cplusplus.com/reference/stl/)
