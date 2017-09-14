@@ -60,14 +60,15 @@ When one wants to analyse a physics process, the typical work flow may look as f
 Following these steps, this introduction is organised as the following:
 
     1. How to generate monte-carlo events ---- whizard basic introduction.
-    2. How to simulate events.
-    3. The name rules for events samples in ILC group.
-    4. Basic tools to check the events.
-    5. How to run Marlin for analysis.
-    6. Marlin processors for ILCSoft ---- a short introduction for some processors.
-    7. How to create a new Marlin processor.
-    8. Slcio file structure and lcio program API ---- what one should know for writing a new processor.
-    9. How to program for a new Marlin processor.
+    2. How to initialization iLCSoft enverionment.
+    3. How to simulate events.
+    4. The name rules for events samples in ILC group.
+    5. Basic tools to check the events.
+    6. How to run Marlin for analysis.
+    7. Marlin processors for ILCSoft ---- a short introduction for some processors.
+    8. How to create a new Marlin processor.
+    9. Slcio file structure and lcio program API ---- what one should know for writing a new processor.
+    10. How to program for a new Marlin processor.
 
 In this introduction, we only explain some basic usage of the ILCSoft, the manual of each package can be found in their own README file.
 ILCSoft contains many subpackages, there is a example folder in each package, where you can find detail examples.
@@ -86,12 +87,18 @@ For a member of ILC group, Whizard is usually be installed on the server, try to
 
 For other user, Whizard is not included in the ILCSoft package, here you can download [Whizard](https://whizard.hepforge.org/), and find the manual.
 
+### How to initialization iLCSoft enverionment.
+To initialize the iLCSoft environment with a command like this:  
+
+`	source  /The path of your iLCSoft/v01-19-04/init_ilcsoft.sh`
+
+Then you can use all iLCSoft command.
 
 ### How to simulate events
 Let's suppose that you already know how to use Whizard, and have generated a stdhep file. Then you can simulate the events with "Mokka/DD4Hep".
-The command is ddsim-- <...> 
-before, you probably have to initialize the iLCSoft environment with a command like this:  
-	 	. /afs/desy.de/project/ilcsoft/sw/x86_64_gcc49_sl6/v01-19-04/init_ilcsoft.sh
+
+The command is 
+`ddsim-- <...> `
 
 
 ### The events samples in ILC group
@@ -132,6 +139,7 @@ The ILCSoft provides many tools to check them for different purposes.
 2. The file after simulation is always a "slcio" file, you can check the "slcio" file with 
 	- anajob xxx.slcio              --- for basic information (total events number, how many collections, what collections, the meaning for collections will be explained in the "slcio structure section")
 	- dumpevent xxx.slcio n | less  --- for details of the n th events (The detail information for each collections)
+
 3. check the event in the detector, the GearOutput.xml can be found in "ILDConfig" folder, which contains the ILD detector information.
 	- ced2go -d GearOutput.xml -v DSTViewer xxx.slcio   --- for DST file   
 	- ced2go -d GearOutput.xml  xxx.slcio               --- for REC file
