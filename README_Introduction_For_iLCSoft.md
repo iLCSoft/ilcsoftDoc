@@ -15,33 +15,18 @@ When one wants to analyse a physics process, the typical work flow may look as f
 
 Following these steps, this introduction is organised as the following:
 
-    1. How to generate monte-carlo events ---- whizard basic introduction.
-    2. How to initialization iLCSoft enverionment.
-    3. How to simulate events.
-    4. The name rules for events samples in ILC group.
-    5. Basic tools to check the events.
-    6. How to run Marlin for analysis.
-    7. Marlin processors for ILCSoft ---- a short introduction for some processors.
-    8. How to create a new Marlin processor.
-    9. Slcio file structure and lcio program API ---- what one should know for writing a new processor.
-    10. How to program for a new Marlin processor.
+    1. How to initialization iLCSoft enverionment.
+    2. How to simulate events.
+    3. The name rules for events samples in ILC group.
+    4. Basic tools to check the events.
+    5. How to run Marlin for analysis.
+    6. Marlin processors for ILCSoft ---- a short introduction for some processors.
+    7. How to create a new Marlin processor.
+    8. Slcio file structure and lcio program API ---- what one should know for writing a new processor.
+    9. How to program for a new Marlin processor.
 
 In this introduction, we only explain some basic usage of the ILCSoft, the manual of each package can be found in their own README file.
 ILCSoft contains many subpackages, there is a example folder in each package, where you can find detail examples.
-
-## whizard basic introduction
-For a member of ILC group, Whizard is usually be installed on the server, try to find it and install it on your account. Here is some tips:
-1. every time when you want to change the model or generate a new physics channel, you should change whizard.prc file and recompile whizard.
-   The model file is in the ./conf/models/xxx.mdl
-
-2. after compile the whizard, you can use it following these steps
-	- make a new folder
-	- make a soft link to the whizard executable program "whizard", which should in $WHIZARD_PATH/bin/whizard
-	- put whizard.in, whizard.cut1, whizard.cut5, whizard.prc, whizard.mdl files in the folder.
-	- edit whizard.in, whizard.cut1 and whizard.cut5
-	- run whizard with  ./whizard
-
-For other user, Whizard is not included in the ILCSoft package, here you can download [Whizard](https://whizard.hepforge.org/), and find the manual.
 
 ## How to initialization iLCSoft enverionment.
 To initialize the iLCSoft environment with a command like this:  
@@ -72,7 +57,7 @@ Here, we use two steering files:
 
 ## The events samples in ILC group
 
-- ILD group ---- [ILD sample examples](https://github.com/YancyW/ILDDoc/blob/master/README.md).
+- ILD group ---- [ILD sample examples](https://github.com/ILDAnaSoft/ILDDoc/blob/master/README.md).
 - xxx . 
 - xxx . 
 
@@ -106,11 +91,11 @@ To run Marlin, first you need a steering file, you can create a typical steering
 ` Marlin -x >> mysteer.xml`
 
 In this steering file "mysteer.xml", it contains many processors supplied by ILCSoft. 
-Or you can find a more practical example at [here](https://github.com/iLCSoft/ILDConfig/blob/master/StandardConfig/lcgeo_current/bbudsc_3evt_stdreco_dd4hep.xml)
+Or you can find a more practical example at [https://github.com/iLCSoft/ILDConfig/blob/master/StandardConfig/lcgeo_current/bbudsc_3evt_stdreco_dd4hep.xml](https://github.com/iLCSoft/ILDConfig/blob/master/StandardConfig/lcgeo_current/bbudsc_3evt_stdreco_dd4hep.xml)
 
 But they are so complicated, we can use a simple one for explaination. 
 This is a typical steering file, the file ends with .xml 
-The steering file uses XML language, which is a markup language, here is the usage of [xml](http://www.xmlfiles.com/xml/xml_usedfor.asp). 
+The steering file uses XML language, which is a markup language, there is the usage of xml [http://www.xmlfiles.com/xml/xml_usedfor.asp](http://www.xmlfiles.com/xml/xml_usedfor.asp). 
 In this file, it only uses one processor --- IsolatedLeptonTaggingProcessor, and some parameters of this processer use the default value. 
 
 ```
@@ -190,7 +175,7 @@ You can check which marlin processor library has been loaded by a bash command
 `echo $MARLIN_DLL`
 
 
-The processors that relate to ILDAnalysis can be found [here](https://github.com/YancyW/ILDDoc)
+The processors that relate to ILDAnalysis can be found [https://github.com/ILDAnaSoft/ILDDoc](https://github.com/ILDAnaSoft/ILDDoc)
 
 
 ## How to create a new Marlin processor
@@ -233,17 +218,17 @@ The processors that relate to ILDAnalysis can be found [here](https://github.com
    When you need to write a new Marlin processor, you have to know the structure of the slcio file.
    You can check the slcio file structure with anajob for a general information or dumpevent for details.
 
-   The ILD slcio file examples can be found [here](https://github.com/YancyW/ILDDoc/blob/master/dst/ild_dst_collections.md)
+   The ILD slcio file examples can be found [https://github.com/ILDAnaSoft/ILDDoc/blob/master/dst/ild_dst_collections.md](https://github.com/ILDAnaSoft/ILDDoc/blob/master/dst/ild_dst_collections.md)
 
 
-   The way to call these collections and their values  can be found at [here](http://lcio.desy.de/v02-09/doc/doxygen_api/html/namespaces.html), which is all the c++ API for lcio. 
-   The lcio use many c++ STL grammars. if you are not familiar with STL, there is a website for some [explaination](http://www.cplusplus.com/reference/stl/)
+   The way to call these collections and their values  can be found at [http://lcio.desy.de/v02-09/doc/doxygen_api/html/namespaces.html](http://lcio.desy.de/v02-09/doc/doxygen_api/html/namespaces.html), which is all the c++ API for lcio. 
+   The lcio use many c++ STL grammars. if you are not familiar with STL, you can find some explaination at[http://www.cplusplus.com/reference/stl/](http://www.cplusplus.com/reference/stl/)
 
 
 
 ## How to program for a new Marlin processor
-  We recommand you to begin your first processor with the Marlin [examples](https://github.com/iLCSoft/Marlin/tree/master/examples/mymarlin). If you are a experienced programmer, here is some [iLCSoft general
-documentation](http://ilcsoft.desy.de/portal/general_documentation/index_eng.html).
+  We recommand you to begin your first processor with the Marlin [examples](https://github.com/iLCSoft/Marlin/tree/master/examples/mymarlin). If you are a experienced programmer, you can find iLCSoft general
+documentations at [http://ilcsoft.desy.de/portal/general_documentation/index_eng.html](http://ilcsoft.desy.de/portal/general_documentation/index_eng.html).
 
   For each Marlin processor, it at least contains two files: MyProcessor.h MyProcessor.cc. 
   In MyProcessor.h, the file structure will be

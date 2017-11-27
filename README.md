@@ -42,4 +42,4 @@ If you are new to git and GitHub, have a look at this tutorial:
 
 
 ## A Brief Introduction for how to use ILCSoft packages
-If you are a new user for iLCSoft, here is [a breif introduction for how to use ILCSoft packages](./README_Introduction_For_iLCSoft.md)
+If you are a new user for iLCSoft, here is [a brief introduction for how to use ILCSoft packages](./README_Introduction_For_iLCSoft.md)
