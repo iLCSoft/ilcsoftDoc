@@ -5,9 +5,12 @@ You can find more details about ilcsoft itself at:
 
 - [http://ilcsoft.desy.de/portal](http://ilcsoft.desy.de/portal)
 
+	- please note that we are currently also re-organizing the documentation and have started to move it to Github as well
 
-We are currently in a transition phase of moving our software packages from 
-the [DESY svn](https://svnsrv.desy.de/websvn) to GitHub.
+## Code documentation
+
+Many iLCSoft packages have API documentation generated from the code - see [./CodeDocumentation.md](CodeDocumentation.md).
+
 
 ## List of packages maintained on GitHub
 
@@ -37,8 +40,6 @@ project and create a pull request with your proposed changes. Please see the
 If you are new to git and GitHub, have a look at this tutorial:
 
 - [https://github.com/andresailer/tutorial](https://github.com/andresailer/tutorial)
-
-
 
 
 ## A Brief Introduction for how to use ILCSoft packages
